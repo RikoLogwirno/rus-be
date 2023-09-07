@@ -16,3 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/private', function () {
+    // return response('Welcome! You are logged in.');
+    $user = auth()->user();
+
+    dd($user);
+    $name = $user->name ?? 'User';
+    $email = $user->email ?? '';
+
+    return response("Hello {$name}! Your email address is {$email}.");
+})->middleware('auth');
